@@ -271,6 +271,14 @@ class Plotter extends Component {
       enableScaling,
     } = this.state;
 
+    // To sort the datasets available for each reference point.
+    if (jsonFile[selectedRef]) {
+      var datasets = jsonFile[selectedRef].map((item) => {
+        return item.proteinName;
+      });
+      datasets = datasets.sort();
+    }
+
     return (
       <Paper className={classes.container}>
         <h1>
@@ -453,25 +461,26 @@ class Plotter extends Component {
           </Grid>
           <Grid item style={{ width: 900 }}>
             <CardContent>
+              {console.log(datasets)}
               {/* If a reference point is selected then show the available datasets. default is emptyString.
               The checked property is set to true if the proteinName is present in the list of plotted. */}
               {jsonFile[selectedRef] ? (
                 jsonFile[selectedRef].length > 0 ? (
                   <FormGroup row>
-                    {jsonFile[selectedRef].map((dat) => {
+                    {datasets.map((dat) => {
                       return (
                         <FormControlLabel
-                          key={dat.proteinName}
+                          key={dat}
                           control={
                             <Checkbox
                               color="primary"
-                              name={dat.proteinName}
+                              name={dat}
                               onClick={this.handleCheckboxClick}
-                              checked={plotted.includes(dat.proteinName)}
+                              checked={plotted.includes(dat)}
                             />
                           }
                           style={{ borderLeft: "1px solid gray", width: 130 }}
-                          label={dat.proteinName}
+                          label={dat}
                         />
                       );
                     })}

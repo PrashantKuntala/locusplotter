@@ -5,8 +5,8 @@
   "dependencies": {
     "@material-ui/core": "^4.5.2",
     "@material-ui/icons": "^4.5.1",
-    "@nivo/bar": "^0.61.1",
-    "@nivo/line": "^0.59.3",
+    "@nivo/bar": "^0.63.1",
+    "@nivo/line": "^0.63.1",
     "axios": "^0.19.1",
     "classnames": "^2.2.6",
     "react": "^16.11.0",

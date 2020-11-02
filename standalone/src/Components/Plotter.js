@@ -281,11 +281,43 @@ class Plotter extends Component {
 
     return (
       <Paper className={classes.container}>
-        <h1>
-          Plot Composites at genomic loci, motif reference points and regions of
-          interest.
-        </h1>
-
+        <h1>Locus Plotter</h1>
+        <Divider />
+        <h3>Motivation :</h3>
+        <Typography variant="body1" gutterBottom>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+          voluptatum vitae recusandae dolor, omnis, magni dolores sit qui
+          voluptatibus atque porro natus fugiat accusantium perferendis harum
+          quibusdam earum similique. Saepe.
+        </Typography>
+        <h3>Instructions :</h3>
+        <Typography variant="body1" gutterBottom>
+          <ul>
+            <li>
+              Select a reference point or protein name from the drop down. In
+              this example's context the reference point is the midpoint of the
+              motif bound by that protein in the yeast genome.
+            </li>
+            <li>
+              After you select a protein, you see a list of datasets that are
+              loaded beside the color picker.
+            </li>
+            <li>
+              Select a color. By default all datasets are gray in color when
+              plotted.
+            </li>
+            <li>
+              Now, check any dataset to plot. Choose another color before
+              plotting the next dataset, otherwise it is plotted in the
+              previously selected color.
+            </li>
+            <li>
+              Customize the plot using the controls that are made available.
+            </li>
+          </ul>
+        </Typography>
+        <Divider />
+        <br />
         {/* Plot controls */}
         <CardActions>
           <Grid container direction="row" spacing={2}>
@@ -380,6 +412,25 @@ class Plotter extends Component {
                 />
               </FormGroup>
             </Grid>
+            <Grid
+              item
+              style={{
+                borderLeft: "1px solid gray",
+              }}
+            >
+              <Typography gutterBottom>
+                No.of Datasets plotted : {plotted.length}
+              </Typography>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={this.handleReset}
+                size="small"
+                style={{ marginLeft: 20 }}
+              >
+                Reset plot
+              </Button>
+            </Grid>
           </Grid>
         </CardActions>
 
@@ -394,25 +445,9 @@ class Plotter extends Component {
         />
 
         {enableFasta ? <FastaComposite data={fastaData} xWidth={xWidth} /> : ""}
-        <br />
-
-        <Typography gutterBottom>
-          No.of Datasets plotted : {plotted.length}
-          <Button
-            color="secondary"
-            variant="outlined"
-            onClick={this.handleReset}
-            size="small"
-            style={{ marginLeft: 20 }}
-          >
-            Reset plot
-          </Button>
-        </Typography>
-
         <Divider />
         <br />
-
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {/* <Grid item>
             <Select
               labelId="category-select"
@@ -459,7 +494,7 @@ class Plotter extends Component {
             />
             <h4 style={{ textAlign: "center" }}>Pick Plot Color</h4>
           </Grid>
-          <Grid item style={{ width: 900 }}>
+          <Grid item style={{ width: "75vw" }}>
             <CardContent>
               {console.log(datasets)}
               {/* If a reference point is selected then show the available datasets. default is emptyString.
@@ -497,6 +532,8 @@ class Plotter extends Component {
             </CardContent>
           </Grid>
         </Grid>
+        <Divider />
+        <br />
       </Paper>
     );
   }

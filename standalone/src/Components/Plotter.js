@@ -13,6 +13,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Slider from "@material-ui/core/Slider";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Heart from "@material-ui/icons/Favorite";
 
 import {
   TextField,
@@ -218,23 +219,6 @@ class Plotter extends Component {
     }
   };
 
-  // To select gene categories
-  // handleCategory = async (event) => {
-  //   // When category changes, fetch references -> datasets -> fasta
-  //   await this.setState({
-  //     selectedCategory: event.target.value,
-  //     referencePoints: [],
-  //     selectedRef: "",
-  //     datasets: [],
-  //     fastaData: [],
-  //     data: [],
-  //     plotted: [],
-  //   });
-
-  //   // add references
-  //   this.fetchRefs();
-  // };
-
   handleRefChange = (event) => {
     // https://github.com/facebook/react/issues/6179
     this.setState({
@@ -285,18 +269,25 @@ class Plotter extends Component {
         <Divider />
         <h3>Motivation :</h3>
         <Typography variant="body1" gutterBottom>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-          voluptatum vitae recusandae dolor, omnis, magni dolores sit qui
-          voluptatibus atque porro natus fugiat accusantium perferendis harum
-          quibusdam earum similique. Saepe.
+          Composite plots are commonly used to show transcription factor binding
+          profile or tag distribution around regions of interest on the genome.
+          This is a web experiment to visualize ChIP-exo datasets of multiple
+          targets at a single reference point, with an aim to gain insights into
+          binding or co-binding patterns at those sites. For example, this tool
+          allows you to visualize the binding profile of one or more TFs at one
+          of the locus (DNA motif site) where Abf1 prefers to bind in the
+          genome. Simply, if you plot Abf1 ChIP-exo dataset at Abf1 reference
+          point, you expect to see a strong peak or tag distribution on either
+          strands, whereas there would be noise for most other TFs at that same
+          location.
         </Typography>
         <h3>Instructions :</h3>
         <Typography variant="body1" gutterBottom>
           <ul>
             <li>
-              Select a reference point or protein name from the drop down. In
-              this example's context the reference point is the midpoint of the
-              motif bound by that protein in the yeast genome.
+              Select a reference point from the drop down. In this example's
+              context the reference point is the midpoint of the motif bound by
+              that protein in the genome.
             </li>
             <li>
               After you select a protein, you see a list of datasets that are
@@ -308,11 +299,12 @@ class Plotter extends Component {
             </li>
             <li>
               Now, check any dataset to plot. Choose another color before
-              plotting the next dataset, otherwise it is plotted in the
-              previously selected color.
+              plotting the next dataset, otherwise the plot color remains the
+              same untill a new color is selected.
             </li>
             <li>
-              Customize the plot using the controls that are made available.
+              Customize the plot using the controls that are made available. You
+              can export the finished plot as an svg to tinker with later.
             </li>
           </ul>
         </Typography>
@@ -433,107 +425,116 @@ class Plotter extends Component {
             </Grid>
           </Grid>
         </CardActions>
-
-        {/* Plots */}
-        <CompositePlot
-          data={this.state.data}
-          xWidth={xWidth}
-          yWidth={yWidth}
-          plotStyle={plotStyle}
-          areaEnabled={areaEnabled}
-          areaOpacity={areaOpacity}
-        />
-
-        {enableFasta ? <FastaComposite data={fastaData} xWidth={xWidth} /> : ""}
-        <Divider />
         <br />
-        <Grid container spacing={3}>
-          {/* <Grid item>
-            <Select
-              labelId="category-select"
-              id="category-select"
-              value={"STM"}
-              margin="dense"
-              className={classes.selectStyle}
-              onChange={this.handleCategory}
-            >
-              {categories.map(item => {
-                return (
-                  <MenuItem value={item} key={item}>
-                    {item}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-            <FormHelperText>Select Gene Category</FormHelperText>
-          </Grid> */}
-          <Grid item>
-            <Select
-              labelId="referencePoint-select"
-              id="referencePoint-select"
-              value={selectedRef}
-              margin="dense"
-              className={classes.selectStyle}
-              onChange={this.handleRefChange}
-            >
-              {Object.keys(jsonFile).map((item) => {
-                return (
-                  <MenuItem value={item} key={item + "-ref"}>
-                    {item}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-            <FormHelperText>Select Reference Point</FormHelperText>
-          </Grid>
-          <Grid item>
-            <SketchPicker
-              color={plotColor}
-              onChange={this.handleSketchChange}
-              disableAlpha={false}
+        <Grid container direction="row" spacing={2} wrap="nowrap">
+          <Grid item style={{ width: "80vw" }}>
+            {/* Plots */}
+            <CompositePlot
+              data={this.state.data}
+              xWidth={xWidth}
+              yWidth={yWidth}
+              plotStyle={plotStyle}
+              areaEnabled={areaEnabled}
+              areaOpacity={areaOpacity}
             />
-            <h4 style={{ textAlign: "center" }}>Pick Plot Color</h4>
+
+            {enableFasta ? (
+              <FastaComposite data={fastaData} xWidth={xWidth} />
+            ) : (
+              ""
+            )}
           </Grid>
-          <Grid item style={{ width: "75vw" }}>
-            <CardContent>
-              {console.log(datasets)}
-              {/* If a reference point is selected then show the available datasets. default is emptyString.
-              The checked property is set to true if the proteinName is present in the list of plotted. */}
-              {jsonFile[selectedRef] ? (
-                jsonFile[selectedRef].length > 0 ? (
-                  <FormGroup row>
-                    {datasets.map((dat) => {
-                      return (
-                        <FormControlLabel
-                          key={dat}
-                          control={
-                            <Checkbox
-                              color="primary"
-                              name={dat}
-                              onClick={this.handleCheckboxClick}
-                              checked={plotted.includes(dat)}
-                            />
-                          }
-                          style={{ borderLeft: "1px solid gray", width: 130 }}
-                          label={dat}
-                        />
-                      );
-                    })}
-                  </FormGroup>
-                ) : (
-                  <Typography component="div" gutterBottom>
-                    Loading datasets
-                    <LinearProgress />
-                  </Typography>
-                )
-              ) : (
-                " "
-              )}
-            </CardContent>
+          <Grid item>
+            <Grid
+              container
+              direction="column"
+              spacing={4}
+              wrap="nowrap"
+              alignContent="center"
+              alignItems="center"
+            >
+              <Grid item></Grid>
+              <Grid item>
+                <Select
+                  labelId="referencePoint-select"
+                  id="referencePoint-select"
+                  value={selectedRef}
+                  margin="dense"
+                  variant="outlined"
+                  color="primary"
+                  className={classes.selectStyle}
+                  onChange={this.handleRefChange}
+                >
+                  {Object.keys(jsonFile).map((item) => {
+                    return (
+                      <MenuItem value={item} key={item + "-ref"}>
+                        {item}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+                <FormHelperText style={{ textAlign: "center", color: "black" }}>
+                  Select a reference point
+                </FormHelperText>
+              </Grid>
+              <Grid item>
+                <SketchPicker
+                  color={plotColor}
+                  onChange={this.handleSketchChange}
+                  disableAlpha={false}
+                  width={180}
+                />
+                <FormHelperText style={{ textAlign: "center", color: "black" }}>
+                  Pick a plot color
+                </FormHelperText>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
-        <Divider />
-        <br />
+
+        <CardContent>
+          <Divider />
+          <h3>Choose datasets to plot</h3>
+          <Divider />
+          <br />
+          {/* {console.log(datasets)} */}
+          {/* If a reference point is selected then show the available datasets. default is emptyString.
+              The checked property is set to true if the proteinName is present in the list of plotted. */}
+          {jsonFile[selectedRef] ? (
+            jsonFile[selectedRef].length > 0 ? (
+              <FormGroup row>
+                {datasets.map((dat) => {
+                  return (
+                    <FormControlLabel
+                      key={dat}
+                      control={
+                        <Checkbox
+                          color="primary"
+                          name={dat}
+                          onClick={this.handleCheckboxClick}
+                          checked={plotted.includes(dat)}
+                        />
+                      }
+                      style={{ borderLeft: "1px solid gray", width: 130 }}
+                      label={dat}
+                    />
+                  );
+                })}
+              </FormGroup>
+            ) : (
+              <Typography component="div" gutterBottom>
+                Loading datasets
+                <LinearProgress />
+              </Typography>
+            )
+          ) : (
+            " "
+          )}
+        </CardContent>
+        <Typography variant="caption" style={{ float: "right" }}>
+          Designed with <Heart style={{ color: "red", fontSize: 12 }} /> by
+          prashant kuntala
+        </Typography>
       </Paper>
     );
   }

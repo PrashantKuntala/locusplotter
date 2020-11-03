@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/locusplotter/static/js/main.c69c8fed.chunk.js",
-    "main.js.map": "/locusplotter/static/js/main.c69c8fed.chunk.js.map",
-    "runtime-main.js": "/locusplotter/static/js/runtime-main.b1353476.js",
-    "runtime-main.js.map": "/locusplotter/static/js/runtime-main.b1353476.js.map",
-    "static/js/2.6a0f2b7c.chunk.js": "/locusplotter/static/js/2.6a0f2b7c.chunk.js",
-    "static/js/2.6a0f2b7c.chunk.js.map": "/locusplotter/static/js/2.6a0f2b7c.chunk.js.map",
-    "static/js/3.a3315c52.chunk.js": "/locusplotter/static/js/3.a3315c52.chunk.js",
-    "static/js/3.a3315c52.chunk.js.map": "/locusplotter/static/js/3.a3315c52.chunk.js.map",
+    "main.js": "/locusplotter/static/js/main.9979b56b.chunk.js",
+    "main.js.map": "/locusplotter/static/js/main.9979b56b.chunk.js.map",
+    "runtime-main.js": "/locusplotter/static/js/runtime-main.98bebfcc.js",
+    "runtime-main.js.map": "/locusplotter/static/js/runtime-main.98bebfcc.js.map",
+    "static/js/2.923e1d28.chunk.js": "/locusplotter/static/js/2.923e1d28.chunk.js",
+    "static/js/2.923e1d28.chunk.js.map": "/locusplotter/static/js/2.923e1d28.chunk.js.map",
+    "static/js/3.294934e4.chunk.js": "/locusplotter/static/js/3.294934e4.chunk.js",
+    "static/js/3.294934e4.chunk.js.map": "/locusplotter/static/js/3.294934e4.chunk.js.map",
     "index.html": "/locusplotter/index.html",
-    "static/js/2.6a0f2b7c.chunk.js.LICENSE.txt": "/locusplotter/static/js/2.6a0f2b7c.chunk.js.LICENSE.txt"
+    "static/js/2.923e1d28.chunk.js.LICENSE.txt": "/locusplotter/static/js/2.923e1d28.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b1353476.js",
-    "static/js/2.6a0f2b7c.chunk.js",
-    "static/js/main.c69c8fed.chunk.js"
+    "static/js/runtime-main.98bebfcc.js",
+    "static/js/2.923e1d28.chunk.js",
+    "static/js/main.9979b56b.chunk.js"
   ]
 }
